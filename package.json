@@ -1,6 +1,6 @@
 {
   "name": "easy-debug",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "debug so easy",
   "main": "dist/EasyDebug.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "keywords": [
     "debug"
   ],
+  "repository": "https://gitee.com/Funcion_woqu/easy-debug.git",
   "author": "Function",
   "license": "ISC",
   "devDependencies": {
