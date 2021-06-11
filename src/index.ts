@@ -3,7 +3,7 @@
 declare var wx: any
 declare var my: any
 
-const VERSION = '1.1.2'
+const VERSION = '1.1.3'
 
 //配置
 const defaultConfig = {
@@ -313,8 +313,21 @@ class Brower extends envBase {
      * 获取一些浏览器的常见数据
      */
     getCommonInfo() {
+
+        var navigatorInfo = {} 
+        for(var attr in navigator)
+        {
+            if(!['plugins','mimeTypes',].includes(attr))navigatorInfo[attr] = navigator[attr]
+        }
+
         return {
-            location, navigator
+            location, navigator:{
+                ...navigatorInfo
+                // navigator:navigator.userAgent,
+                // platform:navigator.platform,
+                // language:navigator.language,
+                // navigator:navigator.userAgent,
+            }
         }
     }
 
@@ -337,9 +350,18 @@ class Brower extends envBase {
 
 
         window.addEventListener('error', (evt) => {
-            const {message, lineno, colno, error} = evt
+            var upEntInfo = {}
+            for(var k in evt){
+                
+                if(!['target','currentTarget','srcElement','path'].includes(k) && typeof evt[k] !== "function"){
+                    console.log(k,evt[k])
+                    upEntInfo[k] = evt[k]
+                }
+            }
+            // console.log(upEntInfo)
+            ///const {message, lineno, colno, error,source} = evt
             // console.log({message,lineno,colno,error})
-            this.LogRecord({type: 'onerror', level: 'error', data: {message, lineno, colno, error}})
+            this.LogRecord({type: 'onerror', level: 'error', data: {error:upEntInfo}})
         })
 
     }

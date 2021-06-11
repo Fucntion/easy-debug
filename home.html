@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>EasyDebug</title>
+<!--    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?callback=pageStart" async defer></script>-->
+<!--    <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>-->
+</head>
+<body>
+<h1>Easy Debug 666</h1>
+<h2>Easy Debug 666</h2>
+<h3>Easy Debug 666</h3>
+<h4>Easy Debug 666</h4>
+<h5>Easy Debug 666</h5>
+
+<script>
+/*window.onerror = function (msg, url, lineNo, columnNo, error) {
+    var string = msg.toLowerCase();
+    var substring = "script error";
+    if (string.indexOf(substring) > -1){
+        alert('Script Error: See Browser Console for Detail');
+    } else {
+        var message = [
+            'Message: ' + msg,
+            'URL: ' + url,
+            'Line: ' + lineNo,
+            'Column: ' + columnNo,
+            'Error object: ' + JSON.stringify(error)
+        ].join(' - ');
+
+        console.log(message);
+    }
+
+    return false;
+};*/
+window.addEventListener('error', (evt) => {
+  for(var k in evt)console.log(k,evt[k])
+    const {message, lineno, colno, error,source} = evt
+    // console.log({message,lineno,colno,error})
+    this.LogRecord({type: 'onerror', level: 'error', data: {message, lineno, colno, error,source}})
+})
+throw Error('fdsfsadfsadfasada')
+</script>
+</body>
+</html>
