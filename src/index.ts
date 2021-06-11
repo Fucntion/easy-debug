@@ -47,7 +47,7 @@ interface httpInterface {
 }
 
 
-class WebBase extends DriveBase {
+class HttpBase extends DriveBase {
     /**
      * 做一些通用的操作
      * @param data
@@ -69,7 +69,7 @@ class WebBase extends DriveBase {
     }
 }
 
-class WebHttp extends WebBase {
+class WebHttp extends HttpBase {
 
     send(url: string, data: any, method: string = 'post', header: any) {
         var xhr = new XMLHttpRequest();
@@ -89,7 +89,7 @@ class WebHttp extends WebBase {
 
 }
 
-class WxMiniHttp extends WebBase {
+class WxMiniHttp extends HttpBase {
 
     send(url: string, data: any, method: string = 'post', header: any) {
 
@@ -105,6 +105,69 @@ class WxMiniHttp extends WebBase {
     }
 
 }
+
+
+class AliMiniHttp extends HttpBase {
+
+    send(url: string, data: any, method: string = 'post', header: any) {
+
+        my.request({
+            url,
+            method,
+            //appid
+            data: this.formatData(data),
+            header: {
+                'content-type': 'application/json' // 默认值
+            }
+        })
+        // var xhr = new XMLHttpRequest();
+        // xhr.open(method, url, true);
+        // xhr.setRequestHeader('content-type', 'application/json');
+        // //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // xhr.onload = function () {
+        //     if (xhr.readyState === xhr.DONE) {
+        //         if (xhr.status === 200) {
+        //             console.log(xhr);
+        //         }
+        //     }
+        // };
+        //
+        // xhr.send(this.formatData(data));
+    }
+
+}
+
+
+class UniHttp extends HttpBase {
+
+    send(url: string, data: any, method: string = 'post', header: any) {
+
+        uni.request({
+            url,
+            method,
+            //appid
+            data: this.formatData(data),
+            header: {
+                'content-type': 'application/json' // 默认值
+            }
+        })
+        // var xhr = new XMLHttpRequest();
+        // xhr.open(method, url, true);
+        // xhr.setRequestHeader('content-type', 'application/json');
+        // //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // xhr.onload = function () {
+        //     if (xhr.readyState === xhr.DONE) {
+        //         if (xhr.status === 200) {
+        //             console.log(xhr);
+        //         }
+        //     }
+        // };
+        //
+        // xhr.send(this.formatData(data));
+    }
+
+}
+
 
 class WebLS extends DriveBase implements storageInterface {
 
@@ -202,35 +265,37 @@ class AliMiniLS extends DriveBase implements storageInterface {
 
 }
 
-class AliMiniHttp extends WebBase {
+class UniLS extends DriveBase implements storageInterface {
 
-    send(url: string, data: any, method: string = 'post', header: any) {
+    set(key: string, val: any): void {
+        try {
+            uni.setStorageSync(key, val)
+        } catch (e) {
+            alert(`设置Storage失败，key：${key}`)
+            throw e
+        }
+    }
 
-        my.request({
-            url,
-            method,
-            //appid
-            data: this.formatData(data),
-            header: {
-                'content-type': 'application/json' // 默认值
-            }
-        })
-        // var xhr = new XMLHttpRequest();
-        // xhr.open(method, url, true);
-        // xhr.setRequestHeader('content-type', 'application/json');
-        // //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        // xhr.onload = function () {
-        //     if (xhr.readyState === xhr.DONE) {
-        //         if (xhr.status === 200) {
-        //             console.log(xhr);
-        //         }
-        //     }
-        // };
-        //
-        // xhr.send(this.formatData(data));
+    get(key: string): boolean {
+        try {
+            let data: any = uni.getStorageSync(key)
+            return data;
+        } catch (e) {
+            alert(`获取Storage失败，key：${key}`)
+            throw e
+        }
+    }
+
+    remove(key: string): void {
+        uni.removeStorageSync(key)
+    }
+
+    clear(): void {
+        uni.clearStorageSync()
     }
 
 }
+
 
 
 class envBase extends DriveBase {
@@ -349,23 +414,6 @@ class WxMini extends envBase {
      */
     AddLister() {
 
-        //点击事件
-        // document.body.addEventListener('click', {
-        //     handleEvent: (evt) => {
-        //         console.log(evt, 2222);
-        //         // @ts-ignore
-        //         const {x, y, view: windowCtx} = evt;
-        //         const {scrollX, scrollY, screen} = windowCtx;
-        //         this.LogRecord({type: ' click', data: {x, y, scrollX, scrollY, screen, ...this.getCommonInfo()}});
-        //     }
-        // }, false);
-        //
-        //
-        // window.addEventListener('error', (evt) => {
-        //     const {message, lineno, colno, error} = evt
-        //     // console.log({message,lineno,colno,error})
-        //     this.LogRecord({type: 'onerror', level: 'error', data: {message, lineno, colno, error}})
-        // })
 
     }
 
@@ -436,23 +484,77 @@ class AliMini extends envBase {
      */
     AddLister() {
 
-        //点击事件
-        // document.body.addEventListener('click', {
-        //     handleEvent: (evt) => {
-        //         console.log(evt, 2222);
-        //         // @ts-ignore
-        //         const {x, y, view: windowCtx} = evt;
-        //         const {scrollX, scrollY, screen} = windowCtx;
-        //         this.LogRecord({type: ' click', data: {x, y, scrollX, scrollY, screen, ...this.getCommonInfo()}});
-        //     }
-        // }, false);
-        //
-        //
-        // window.addEventListener('error', (evt) => {
-        //     const {message, lineno, colno, error} = evt
-        //     // console.log({message,lineno,colno,error})
-        //     this.LogRecord({type: 'onerror', level: 'error', data: {message, lineno, colno, error}})
-        // })
+
+    }
+
+    /**
+     * 开始服务
+     * @constructor
+     */
+    Start() {
+        this.AddLister();
+        //this.intervalCtx = setInterval(this.UpLog.bind(this), this.sendTime)
+    }
+
+    /**
+     * 手动记录记录
+     * @param {String} type 事件类型 [none,click,touch]
+     * @param data 数据
+     * @param {String} level 消息类型 info warning console
+     * @constructor
+     */
+    LogRecord({type, data, level = 'info'}) {
+        // @ts-ignore
+        this.tempList.push({type, data: {...data, ...this.getCommonInfo()}, level, create_at: utils.getNowTime(), env: this.debugCtx.environment});
+        console.log(this.tempList);
+        this.debugCtx.drive.storage.set('tempList',this.tempList)
+        //先加一次就传一次吧，后面再合并多个。
+        // this.UpLog()
+    }
+
+    /**
+     * 上传数据
+     * @constructor
+     */
+    UpLog() {
+        // @ts-ignore
+        this.debugCtx.drive.http.send(this.debugCtx.config.upLogUrl, {logs: this.tempList})
+        this.tempList = []
+        this.debugCtx.drive.storage.remove('tempList')
+    }
+
+    /**
+     * 停止
+     * @constructor
+     */
+    Stop() {
+        // @ts-ignore
+        clearInterval(this.intervalCtx)
+    }
+}
+
+
+
+class Uni extends envBase {
+
+    /**
+     * 获取当前的支付宝小程序页面
+     */
+    getCommonInfo() {
+        // @ts-ignore
+        const pageInstanceList = getCurrentPages()
+        const currentPagePath = pageInstanceList[pageInstanceList.length - 1].route
+        return {
+            currentPagePath
+        }
+    }
+
+    /**
+     * 添加监听
+     * @constructor
+     */
+    AddLister() {
+
 
     }
 
@@ -572,6 +674,14 @@ class AliMini extends envBase {
                 this.drive.env = new AliMini(this)
                 this.drive.storage = new AliMiniLS(this)
                 this.drive.http = new AliMiniHttp(this)
+                this.drive.env.Start()
+            }
+
+            
+            if (this.environment === 'Uni') {
+                this.drive.env = new Uni(this)
+                this.drive.storage = new UniLS(this)
+                this.drive.http = new UniHttp(this)
                 this.drive.env.Start()
             }
 

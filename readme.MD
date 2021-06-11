@@ -1,6 +1,6 @@
 # easy-debug
 
-支持pc和移动端web,微信小程序，支付宝小程序，头条小程序的错误收集上报，分析小工具。
+支持pc和移动端web,UNIAPP，微信小程序，支付宝小程序，头条小程序的错误收集上报，分析小工具。
 
 ## 安装使用
 
@@ -12,7 +12,7 @@
  
  const EasyDebug = require('EasyDebug') // require('EasyDebug/dist/EasyDebug.js')
 
- //初始化 Env可选参数(Brower/WxMini/AliMini) 
+ //初始化 Env可选参数(Brower/WxMini/AliMini/Uni) 
  const bugCtx = EasyDebug.initApp({
      AppID:'jwCbG268w0sYfOdv',
      AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
@@ -28,7 +28,7 @@
 
 ### cdn
 ```html
-<script src="https://cdn.jsdelivr.net/npm/easy-debug@1.0.4/dist/EasyDebug.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/easy-debug/dist/EasyDebug.min.js"></script>
 <script>
     //初始化 Env可选参数(Brower/WxMini/AliMini) 
     const bugCtx = EasyDebug.initApp({
@@ -72,7 +72,36 @@ setTimeout(()=>{
 </html>
 
 ```
+### UNIAPP
+```javascript
+//app.vue
+const EasyDebug = require('easybug/index.js')
+const bugCtx = EasyDebug.initApp({
+    AppID:'jwCbG268w0sYfOdv',
+    AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+    Env:'Uni'
+})
+export default {
+  globalData: {
+    
+  },
+  onLaunch: function () {
+    console.log('App Launch')
+  },
+  onShow: function (options) {
+    console.log('App Show')
+  },
+  onHide: function () {
+    console.log('App Hide')
+  },
+  onError: function (msg) {
+    console.log(msg)
+    bugCtx.drive.env.LogRecord({type:'onError',level:'error',data:{msg}})
+    bugCtx.drive.env.Uplog()
+  }
+}
 
+```
 
 ### 微信小程序
 
