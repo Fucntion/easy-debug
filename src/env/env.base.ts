@@ -1,6 +1,6 @@
 import BaseClass from "../utils/base.class";
 import {EnvInterface, Log} from "../utils/interfaces";
-import {getNowTime} from "../utils";
+import {getNowTime, getNowTimeFull} from "../utils";
 
 
 export default class EnvBase extends BaseClass implements EnvInterface{
@@ -28,7 +28,7 @@ export default class EnvBase extends BaseClass implements EnvInterface{
             type,
             data: {...data, ...this.getCommonInfo()},
             level,
-            create_at: getNowTime(),
+            create_at: getNowTimeFull(),
             env: this.debugCtx.environment
         });
         console.log(this.tempList);
@@ -42,6 +42,7 @@ export default class EnvBase extends BaseClass implements EnvInterface{
      * @constructor
      */
     UpLog() {
+        if(this.tempList.length<1)return;
         this.debugCtx.drive.http.send(this.debugCtx.config.upLogUrl, {logs: this.tempList})
         this.tempList = []
         this.debugCtx.drive.storage.remove('tempList')
@@ -53,7 +54,7 @@ export default class EnvBase extends BaseClass implements EnvInterface{
      */
     Start() {
         this.AddLister();
-        //this.intervalCtx = setInterval(this.UpLog.bind(this), this.sendTime)
+        this.intervalCtx = setInterval(this.UpLog.bind(this), this.sendTime)
     }
 
     /**

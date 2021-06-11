@@ -60,6 +60,7 @@ export default class EnvBrower extends EnvBase {
                     upEntInfo[k] = evt[k]
                 }
             }
+            console.log(upEntInfo)
             this.LogRecord({type: 'onerror', level: 'error', data: {error:upEntInfo}})
         })
 
