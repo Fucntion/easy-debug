@@ -3,6 +3,8 @@
 declare var wx: any
 declare var my: any
 
+const VERSION = '1.0.6'
+
 //配置
 const defaultConfig = {
     upLogUrl: 'http://localhost:9100/api/bug/up'
@@ -519,7 +521,7 @@ class AliMini extends envBase {
         AppID: '',
         AppSecret: '',
         environment: '', // 默认web可选值为'Brower','WxMini','AliMini'
-        version: '0.01',
+        version: VERSION,
         //利用驱动的方式，来搞定存储以及上传
         drive: {
             env: null,

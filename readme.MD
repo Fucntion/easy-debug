@@ -3,11 +3,14 @@
 支持pc和移动端web,微信小程序，支付宝小程序，头条小程序的错误收集上报，分析小工具。
 
 ## 安装使用
+
+### npm 
+
 ```javascript
 
  //yarn easy-debug -S
  
- const EasyDebug = require('EasyDebug/dist/EasyDebug.js')
+ const EasyDebug = require('EasyDebug') // require('EasyDebug/dist/EasyDebug.js')
 
  //初始化 Env可选参数(Brower/WxMini/AliMini) 
  const bugCtx = EasyDebug.initApp({
@@ -21,6 +24,24 @@
  bugCtx.drive.env.LogRecord({type, data, level})
  bugCtx.drive.env.UpLog()
 
+```
+
+### cdn
+```html
+<script src="https://cdn.jsdelivr.net/npm/easy-debug@1.0.4/dist/EasyDebug.js"></script>
+<script>
+    //初始化 Env可选参数(Brower/WxMini/AliMini) 
+    const bugCtx = EasyDebug.initApp({
+        AppID:'jwCbG268w0sYfOdv',
+        AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+        Env:'AliMini'
+    })
+    //初始化后自动接管控制台报错并上报
+
+    //如果需要手动上报自定义的信息
+    bugCtx.drive.env.LogRecord({type, data, level})
+    bugCtx.drive.env.UpLog()
+</script>
 ```
 
 ## 使用

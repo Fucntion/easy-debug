@@ -1,6 +1,6 @@
 {
   "name": "easy-debug",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "debug so easy",
   "main": "dist/EasyDebug.js",
   "scripts": {
@@ -13,7 +13,10 @@
   "author": "Function",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
     "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",
