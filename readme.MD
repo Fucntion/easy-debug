@@ -24,6 +24,9 @@
  bugCtx.drive.env.LogRecord({type, data, level})
  bugCtx.drive.env.UpLog()
 
+ //修改配置的话
+ bugCtx.setConfig(key,val)
+ bugCtx.setConig('upLogUrl','xxxxxxx')
 ```
 
 ### cdn

@@ -3,7 +3,7 @@
 declare var wx: any
 declare var my: any
 
-const VERSION = '1.0.6'
+const VERSION = '1.1.2'
 
 //配置
 const defaultConfig = {
@@ -637,7 +637,7 @@ class Uni extends envBase {
          * @param val
          */
         setConfig(key, val) {
-            this.confi[key] = val
+            this.config[key] = val
         },
         /**
          * 设置多项配置
