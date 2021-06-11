@@ -10,7 +10,7 @@
 
  //yarn easy-debug -S
  
- const EasyDebug = require('EasyDebug') // require('EasyDebug/dist/EasyDebug.js')
+ const EasyDebug = require('easy-debug') // require('easy-debug/dist/EasyDebug.js')
 
  //初始化 Env可选参数(Brower/WxMini/AliMini/Uni) 
  const bugCtx = EasyDebug.initApp({
@@ -74,8 +74,11 @@ setTimeout(()=>{
 ```
 ### UNIAPP
 ```javascript
+/**
+ * 单个组件中使用,以app.vue为例
+ */
 //app.vue
-const EasyDebug = require('easybug/index.js')
+const EasyDebug = require('easy-debug')
 const bugCtx = EasyDebug.initApp({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
@@ -101,13 +104,34 @@ export default {
   }
 }
 
+/**
+ * 写在main.js中全局可用
+ */
+
+//main.js
+const EasyDebug = require('easy-debug')
+const bugCtx = EasyDebug.initApp({
+    AppID:'jwCbG268w0sYfOdv',
+    AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+    Env:'Uni'
+})
+
+
+uni.$EasyDebug = EasyDebug
+
+//这样可以在任意页面如下调用
+
+uni.$EasyDebug.drive.env.LogRecord({type:'onError',level:'error',data:{msg}})
+uni.$EasyDebug.drive.env.Uplog()
+
+
 ```
 
 ### 微信小程序
 
 ```javascript
 // app.js
-const EasyDebug = require('easybug/index.js')
+const EasyDebug = require('easy-debug')
 const bugCtx = EasyDebug.initApp({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
