@@ -10,11 +10,15 @@
  const EasyDebug = require('EasyDebug/dist/EasyDebug.js')
 
  //初始化 Env可选参数(Brower/WxMini/AliMini) 
- const bugCtx = EasyDebug.initApp({AppID:'jwCbG268w0sYfOdv',AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',Env:'AliMini'})
+ const bugCtx = EasyDebug.initApp({
+     AppID:'jwCbG268w0sYfOdv',
+     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+     Env:'AliMini'
+ })
  //初始化后自动接管控制台报错并上报
  
  //如果需要手动上报自定义的信息
- bugCtx.drive.env.LogRecord({type, data, level = 'info'})
+ bugCtx.drive.env.LogRecord({type, data, level})
  bugCtx.drive.env.UpLog()
 
 ```
@@ -33,7 +37,11 @@
 
 <script src="dist/EasyDebug.js"></script>
 <script>
-const bugCtx = EasyDebug.initApp({AppID:'jwCbG268w0sYfOdv',AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',Env:'Brower'})
+const bugCtx = EasyDebug.initApp({
+    AppID:'jwCbG268w0sYfOdv',
+    AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+    Env:'Brower'
+})
 console.log(bugCtx)
 setTimeout(()=>{
   throw Error('xxxxxxx')
@@ -50,7 +58,11 @@ setTimeout(()=>{
 ```javascript
 // app.js
 const EasyDebug = require('easybug/index.js')
-const bugCtx = EasyDebug.initApp({AppID:'jwCbG268w0sYfOdv',AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',Env:'WxMini'})
+const bugCtx = EasyDebug.initApp({
+    AppID:'jwCbG268w0sYfOdv',
+    AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+    Env:'WxMini'
+})
 App({
   onLaunch() {
     // 展示本地存储能力
@@ -84,7 +96,11 @@ App({
 
 ```javascript
 const EasyDebug = require('./easybug/index.js')
-const bugCtx = EasyDebug.initApp({AppID:'jwCbG268w0sYfOdv',AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',Env:'AliMini'})
+const bugCtx = EasyDebug.initApp({
+    AppID:'jwCbG268w0sYfOdv',
+    AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+    Env:'AliMini'
+})
 
 App({
   onLaunch(options) {
