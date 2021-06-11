@@ -2,25 +2,68 @@ var gulp = require("gulp");
 var ts = require("gulp-typescript");
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
-// const babel = require('gulp-babel');
 var tsProject = ts.createProject("tsconfig.json");
-gulp.task("default", function () {
-    return tsProject.src()
-        .pipe(tsProject())
-        .js
-        // .pipe(uglify())
-        // .pipe(babel({
-        //     presets: ['@babel/preset-env']
-        // }))
-        .pipe(rename({
-            basename:'EasyDebug',
-            // extname: '.min.js'
-        }))
-        .pipe(gulp.dest("dist"))
-        .pipe(uglify())
-        .pipe(rename({
-            basename:'EasyDebug',
-            extname: '.min.js'
-        }))
-        .pipe(gulp.dest("dist"))
-});
+
+const browserify = require("browserify");
+const source = require('vinyl-source-stream');
+const tsify = require("tsify");
+
+const watchify = require("watchify");
+const gutil = require("gulp-util");
+
+var sourcemaps = require("gulp-sourcemaps");
+var buffer = require("vinyl-buffer");
+
+const paths = {
+    pages: ['src/*.html']
+};
+
+
+const watchedBrowserify = watchify(
+    browserify({
+    basedir: '.',
+    debug: true,
+    entries: ['src/main.ts'],
+    cache: {},
+    packageCache: {}
+    })
+    .plugin(tsify)
+
+
+);
+
+gulp.task("copy-html", function () {
+    return gulp.src(paths.pages)
+        .pipe(gulp.dest("dist"));
+})
+
+
+function browserifyBundle() {
+    return watchedBrowserify
+        // .bundle()
+        // .pipe(source('bundle.js'))
+        // .pipe(gulp.dest("dist"))
+        .transform("babelify", {
+            presets: ["es2015"],
+            extensions: [".ts"],
+        })
+        .bundle()
+        .pipe(source("bundle.js"))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({ loadMaps: true }))
+        .pipe(sourcemaps.write("./"))
+        .pipe(gulp.dest("dist"));
+}
+
+gulp.task("browserify", function() {
+    return browserifyBundle();
+})
+
+
+
+gulp.task("default", gulp.series('copy-html', 'browserify'));
+
+
+watchedBrowserify.on("update", browserifyBundle);
+watchedBrowserify.on("log", gutil.log);
+
