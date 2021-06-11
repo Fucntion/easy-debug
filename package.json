@@ -1,6 +1,6 @@
 {
   "name": "easy-debug",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "debug so easy",
   "main": "dist/EasyDebug.js",
   "scripts": {

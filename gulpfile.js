@@ -16,5 +16,11 @@ gulp.task("default", function () {
             basename:'EasyDebug',
             // extname: '.min.js'
         }))
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest("dist"))
+        .pipe(uglify())
+        .pipe(rename({
+            basename:'EasyDebug',
+            extname: '.min.js'
+        }))
+        .pipe(gulp.dest("dist"))
 });
