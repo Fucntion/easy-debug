@@ -20,7 +20,7 @@ import HttpUni from "./http/http.uni";
 //配置
 const VERSION = '1.1.3'
 const defaultConfig = {
-    upLogUrl: 'http://localhost:9100/api/bug/up'
+    upLogUrl: 'http://1.117.227.95/:9100/api/bug/up'
 }
 
 const EasyDebugCore = {
