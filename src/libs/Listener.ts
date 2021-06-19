@@ -2,7 +2,7 @@ import {Log} from "../utils/interfaces";
 
 export default class Listener{
     addListener(){
-        
+
         //点击事件
         document.body.addEventListener('click', {
             handleEvent: (evt) => {
