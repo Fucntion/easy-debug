@@ -13,7 +13,7 @@
  const EasyDebug = require('easy-debug') // require('easy-debug/dist/EasyDebug.js')
 
  //初始化 Env可选参数(Brower/WxMini/AliMini/Uni) 
- const bugCtx = EasyDebug.initApp({
+ const bugCtx = EasyDebug({
      AppID:'jwCbG268w0sYfOdv',
      AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
      Env:'AliMini'
@@ -34,7 +34,7 @@
 <script src="https://cdn.jsdelivr.net/npm/easy-debug/dist/EasyDebug.min.js"></script>
 <script>
     //初始化 Env可选参数(Brower/WxMini/AliMini) 
-    const bugCtx = EasyDebug.initApp({
+    const bugCtx = EasyDebug({
         AppID:'jwCbG268w0sYfOdv',
         AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
         Env:'AliMini'
@@ -61,7 +61,7 @@
 
 <script src="dist/EasyDebug.js"></script>
 <script>
-const bugCtx = EasyDebug.initApp({
+const bugCtx = EasyDebug({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Brower'
@@ -82,7 +82,7 @@ setTimeout(()=>{
  */
 //app.vue
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug.initApp({
+const bugCtx = EasyDebug({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Uni'
@@ -113,7 +113,7 @@ export default {
 
 //main.js
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug.initApp({
+const bugCtx = EasyDebug({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Uni'
@@ -135,7 +135,7 @@ uni.$EasyDebug.drive.env.Uplog()
 ```javascript
 // app.js
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug.initApp({
+const bugCtx = EasyDebug({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'WxMini'
@@ -173,7 +173,7 @@ App({
 
 ```javascript
 const EasyDebug = require('./easybug/index.js')
-const bugCtx = EasyDebug.initApp({
+const bugCtx = EasyDebug({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'AliMini'

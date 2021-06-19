@@ -39,3 +39,12 @@ export const getNowTimeFull = () => {
     //返回拼接字符串
     return NewDate;
 }
+
+//装饰器
+export function Inject(modules: any) {
+    return function(target: any) {
+        modules.forEach((module:any) => {
+            target.prototype[module.name] = new module();
+        });
+    };
+}

@@ -32,6 +32,7 @@ export default class EnvBase extends BaseClass implements EnvInterface{
             env: this.debugCtx.environment
         });
         console.log(this.tempList);
+        //这里该如何调用drive但是又不会循环引用呢
         this.debugCtx.drive.storage.set('tempList', this.tempList)
         //先加一次就传一次吧，后面再合并多个。
         // this.UpLog()

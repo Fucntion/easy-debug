@@ -37,8 +37,10 @@ var configGenerator = function (target, filename) {
         },
         target: target, // "web" is default
         output: {
-            library: "EasyDebug",
-            libraryTarget: "umd",
+            library: {
+                name:"EasyDebug",
+                type:"umd"
+            },
             filename: filename,
             // globalObject: "this",
             path: path.resolve(__dirname, 'dist')
