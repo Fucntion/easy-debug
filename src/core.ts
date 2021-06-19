@@ -20,7 +20,8 @@ import HttpUni from "./http/http.uni";
 import Http from "./libs/Http";
 import Storage from "./libs/Storage"
 import Debug from "./libs/Debug";
-import {Inject} from "./utils";
+import {getNowTimeFull, Inject} from "./utils";
+import {Log} from "./utils/interfaces";
 
 //配置
 const VERSION = '1.1.4'
@@ -28,8 +29,17 @@ const defaultConfig = {
     upLogUrl: 'http://1.117.227.95/:9100/api/bug/up'
 }
 
-// @Inject([Http,Storage,Debug])
+@Inject([Http,Storage,Debug])
 class EasyDebug {
+
+    tempList: any = []
+    sendTime:number = 10 * 1000//一分钟一次
+    trynum:number = 3//重试残次
+    intervalCtx: any = null
+    AppID = ''
+    AppSecret = ''
+    environment = ''
+    version = ''
 
     constructor({AppID, AppSecret, Env = 'Brower'}) {
 
@@ -48,6 +58,76 @@ class EasyDebug {
         // }
         this.config = {...defaultConfig}
     }
+
+    Start(){
+
+        this.listen.start();
+        this.intervalCtx = setInterval(this.UpLog.bind(this), this.sendTime)
+    }
+
+    UpLog(){
+
+    }
+
+    /**
+     * 手动记录记录
+     * @param log
+     * @constructor
+     */
+    LogRecord(log:Log) {
+        const {type, data, level = 'info'} = log
+        this.tempList.push({
+            type,
+            data: {...data, ...this.getCommonInfo()},
+            level,
+            create_at: getNowTimeFull(),
+            // env: this.environment
+        });
+        console.log(this.tempList);
+        //这里该如何调用drive但是又不会循环引用呢
+        // this.storage.set('tempList', this.tempList)
+        //先加一次就传一次吧，后面再合并多个。
+        // this.UpLog()
+    }
+
+    /**
+     * 上传数据
+     * @constructor
+     */
+    UpLog() {
+        if(this.tempList.length<1)return;
+        // this.http.send(this.debugCtx.config.upLogUrl, {logs: this.tempList})
+        this.tempList = []
+        // this.storage.remove('tempList')
+    }
+
+    /**
+     * 开始服务
+     * @constructor
+     */
+    Start() {
+        this.AddLister();
+        this.intervalCtx = setInterval(this.UpLog.bind(this), this.sendTime)
+    }
+
+    /**
+     * 停止
+     * @constructor
+     */
+    Stop() {
+        clearInterval(this.intervalCtx)
+    }
+
+
+    /**
+     * 添加监听
+     * @constructor
+     */
+    AddLister() {
+
+
+    }
+
 
     getEnvironment(){
         return this.environment
@@ -76,43 +156,7 @@ class EasyDebug {
         this.config = {...this.config, ...opts}
     }
 
-    // initApp({AppID, AppSecret, Env = 'Brower'}) {
-    //     this.AppID = AppID;
-    //     this.AppSecret = AppSecret;
-    //     this.environment = Env;
-    //
-    //     if (this.environment === 'Brower') {
-    //         this.drive.env = new EnvBrower(this)
-    //         this.drive.storage = new StorageBrower(this)
-    //         this.drive.http = new HttpBrower(this)
-    //         this.drive.env.Start()
-    //     }
-    //
-    //     if (this.environment === 'WxMini') {
-    //         this.drive.env = new EnvWxmini(this)
-    //         this.drive.storage = new StorageWxmini(this)
-    //         this.drive.http = new HttpWxmini(this)
-    //         this.drive.env.Start()
-    //     }
-    //
-    //     if (this.environment === 'AliMini') {
-    //         this.drive.env = new EnvAlimini(this)
-    //         this.drive.storage = new StorageAlimini(this)
-    //         this.drive.http = new HttpAlimini(this)
-    //         this.drive.env.Start()
-    //     }
-    //
-    //
-    //     if (this.environment === 'Uni') {
-    //         this.drive.env = new EnvUni(this)
-    //         this.drive.storage = new StorageUni(this)
-    //         this.drive.http = new HttpUni(this)
-    //         this.drive.env.Start()
-    //     }
-    //
-    //     //返回这个
-    //     return this.drive.env;
-    // }
+
 }
 
 export default EasyDebug
