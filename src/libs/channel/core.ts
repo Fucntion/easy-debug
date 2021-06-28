@@ -8,7 +8,7 @@ import {httpInterface, Log, logData, storageInterface} from "../../utils/interfa
 const VERSION = '1.1.4'
 
 const defaultConfig = {
-  upLogUrl: 'http://1.117.227.95/:9100/api/bug/up'
+  upLogUrl: 'http://1.117.227.95:9100/api/bug/up'
 }
 
 

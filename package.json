@@ -1,6 +1,6 @@
 {
   "name": "easy-debug",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "debug so easy",
   "main": "src/main.ts",
   "scripts": {
