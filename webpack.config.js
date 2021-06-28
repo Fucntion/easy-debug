@@ -1,57 +1,47 @@
 const path = require('path');
-
-// PLATFORMS
-var variants = [
-    {
-        target: "web",
-        filename: "EasyDebug.browser.js"
+const TerserPlugin = require('terser-webpack-plugin');
+module.exports = {
+    entry: {
+        'EasyDebug':'./src/main.ts',
+        'EasyDebug.min':'./src/main.ts'
     },
-    {
-        target: "node",
-        filename: "EasyDebug.node.js"
-    }
-];
-
-// CONFIG
-var configGenerator = function (target, filename) {
-    return {
-        entry: './src/main.ts',
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    use: ['babel-loader','ts-loader'],
-                    exclude: /node_modules/
-                },
-                {
-                    test: /\.js$/,
-                    use: 'babel-loader'
-                }
-            ]
-        },
-        optimization: {
-            minimize: false,
-        },
-        resolve: {
-            extensions: [ '.tsx', '.ts', '.js' ],
-            alias:{
-                '@':path.resolve(__dirname,'src')
-            }
-        },
-        target: target, // "web" is default
-        output: {
-            library: {
-                name:"EasyDebug",
-                type:"umd"
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: ['babel-loader','ts-loader'],
+                exclude: /node_modules/
             },
-            filename: filename,
-            // globalObject: "this",
-            path: path.resolve(__dirname, 'dist')
+            {
+                test: /\.js$/,
+                use: 'babel-loader'
+            }
+        ]
+    },
+    optimization: {
+        minimize: true,
+        minimizer:[
+            new TerserPlugin({
+                parallel: true,
+                terserOptions: {
+                    // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+                },
+                include:/min/
+            }),
+        ]
+    },
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.js' ],
+        alias:{
+            '@':path.resolve(__dirname,'src')
         }
-    };
-};
-
-// MAP PLATFORMS WITH CONFIGS
-module.exports = variants.map(function(variant){
-    return configGenerator(variant.target, variant.filename)
-})
+    },
+    output: {
+        library: {
+            name:"EasyDebug",
+            type:"umd"
+        },
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'dist')
+    }
+}

@@ -4,7 +4,7 @@
 
 ## 安装使用
 
-### npm 
+### npm
 
 ```javascript
 
@@ -13,7 +13,7 @@
  const EasyDebug = require('easy-debug') // require('easy-debug/dist/EasyDebug.js')
 
  //初始化 Env可选参数(Brower/WxMini/AliMini/Uni) 
- const bugCtx = EasyDebug({
+ const bugCtx = EasyDebug.init({
      AppID:'jwCbG268w0sYfOdv',
      AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
      Env:'AliMini'
@@ -21,8 +21,8 @@
  //初始化后自动接管控制台报错并上报
  
  //如果需要手动上报自定义的信息
- bugCtx.drive.env.LogRecord({type, data, level})
- bugCtx.drive.env.UpLog()
+ bugCtx.logRecord({type, data, level})
+ bugCtx.upLog()
 
  //修改配置的话
  bugCtx.setConfig(key,val)
@@ -34,16 +34,16 @@
 <script src="https://cdn.jsdelivr.net/npm/easy-debug/dist/EasyDebug.min.js"></script>
 <script>
     //初始化 Env可选参数(Brower/WxMini/AliMini) 
-    const bugCtx = EasyDebug({
+    const bugCtx = EasyDebug.init({
         AppID:'jwCbG268w0sYfOdv',
         AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
         Env:'AliMini'
-    })
+    })EasyDebug.min.js
     //初始化后自动接管控制台报错并上报
 
     //如果需要手动上报自定义的信息
-    bugCtx.drive.env.LogRecord({type, data, level})
-    bugCtx.drive.env.UpLog()
+    bugCtx.logRecord({type, data, level})
+    bugCtx.upLog()
 </script>
 ```
 
@@ -61,7 +61,7 @@
 
 <script src="dist/EasyDebug.js"></script>
 <script>
-const bugCtx = EasyDebug({
+const bugCtx = EasyDebug.init({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Brower'
@@ -82,7 +82,7 @@ setTimeout(()=>{
  */
 //app.vue
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug({
+const bugCtx = EasyDebug.init({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Uni'
@@ -102,8 +102,8 @@ export default {
   },
   onError: function (msg) {
     console.log(msg)
-    bugCtx.drive.env.LogRecord({type:'onError',level:'error',data:{msg}})
-    bugCtx.drive.env.Uplog()
+    bugCtx.logRecord({type:'onError',level:'error',data:{msg}})
+    bugCtx.upLog()
   }
 }
 
@@ -113,7 +113,7 @@ export default {
 
 //main.js
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug({
+const bugCtx = EasyDebug.init({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Uni'
@@ -124,8 +124,8 @@ uni.$EasyDebug = EasyDebug
 
 //这样可以在任意页面如下调用
 
-uni.$EasyDebug.drive.env.LogRecord({type:'onError',level:'error',data:{msg}})
-uni.$EasyDebug.drive.env.Uplog()
+uni.$EasyDebug.logRecord({type:'onError',level:'error',data:{msg}})
+uni.$EasyDebug.uplog()
 
 
 ```
@@ -135,7 +135,7 @@ uni.$EasyDebug.drive.env.Uplog()
 ```javascript
 // app.js
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug({
+const bugCtx = EasyDebug.init({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'WxMini'
@@ -158,8 +158,8 @@ App({
   onError (msg) {
     console.log(bugCtx)
     console.log(msg)
-    bugCtx.drive.env.LogRecord({type:'onError',level:'error',data:{msg}})
-    bugCtx.drive.env.Uplog()
+    bugCtx.logRecord({type:'onError',level:'error',data:{msg}})
+    bugCtx.upLog()
   },
   globalData: {
     userInfo: null,
@@ -173,7 +173,7 @@ App({
 
 ```javascript
 const EasyDebug = require('./easybug/index.js')
-const bugCtx = EasyDebug({
+const bugCtx = EasyDebug.init({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'AliMini'
@@ -190,12 +190,15 @@ App({
   },
   onError (error) {
     console.log('app error',JSON.stringify(error));
-    bugCtx.drive.env.LogRecord({type:'onError',level:'error',data:{msg:error}})
-    bugCtx.drive.env.UpLog()
+    bugCtx.logRecord({type:'onError',level:'error',data:{msg:error}})
+    bugCtx.upLog()
   },
 });
 
 ```
 
-
-
+## 后续升级计划
+* 先优化浏览器环境下的页面全生命周期数据收集，参见谷歌出品的良心类库[PageLifecycle.js](https://github.com/GoogleChromeLabs/page-lifecycle
+  )  
+* 支持头条小程序
+* 开始做项目的官网，并对外提供服务（需要cdn赞助）
