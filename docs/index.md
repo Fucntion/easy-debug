@@ -37,29 +37,30 @@
 ## 使用
 
 ### 浏览器
+
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>EasyDebug</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>EasyDebug</title>
 </head>
 <body>
 
-<script src="dist/EasyDebug.js"></script>
+<script src="../dist/EasyDebug.js"></script>
 <script>
-const bugCtx = EasyDebug.getInstacne({
-    AppID:'jwCbG268w0sYfOdv',
-    AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
-    Env:'Brower'
-})
-// 接管全局的事件
-bugCtx.start()
+  const bugCtx = EasyDebug.getInstacne({
+    AppID: 'jwCbG268w0sYfOdv',
+    AppSecret: '6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
+    Env: 'Brower'
+  })
+  // 接管全局的事件
+  bugCtx.start()
 
-console.log(bugCtx)
-setTimeout(()=>{
-  throw Error('xxxxxxx')
-},4000)
+  console.log(bugCtx)
+  setTimeout(() => {
+    throw Error('xxxxxxx')
+  }, 4000)
 </script>
 </body>
 </html>
