@@ -13,7 +13,7 @@
  const EasyDebug = require('easy-debug') // require('easy-debug/dist/EasyDebug.js')
 
  //初始化 Env可选参数(Brower/WxMini/AliMini/Uni) 
- const bugCtx = EasyDebug.init({
+ const bugCtx = EasyDebug.getInstacne({
      AppID:'jwCbG268w0sYfOdv',
      AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
      Env:'AliMini'
@@ -32,19 +32,6 @@
 ### cdn
 ```html
 <script src="https://cdn.jsdelivr.net/npm/easy-debug/dist/EasyDebug.min.js"></script>
-<script>
-    //初始化 Env可选参数(Brower/WxMini/AliMini) 
-    const bugCtx = EasyDebug.init({
-        AppID:'jwCbG268w0sYfOdv',
-        AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
-        Env:'AliMini'
-    })EasyDebug.min.js
-    //初始化后自动接管控制台报错并上报
-
-    //如果需要手动上报自定义的信息
-    bugCtx.logRecord({type, data, level})
-    bugCtx.upLog()
-</script>
 ```
 
 ## 使用
@@ -61,11 +48,14 @@
 
 <script src="dist/EasyDebug.js"></script>
 <script>
-const bugCtx = EasyDebug.init({
+const bugCtx = EasyDebug.getInstacne({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Brower'
 })
+// 接管全局的事件
+bugCtx.start()
+
 console.log(bugCtx)
 setTimeout(()=>{
   throw Error('xxxxxxx')
@@ -82,7 +72,7 @@ setTimeout(()=>{
  */
 //app.vue
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug.init({
+const bugCtx = EasyDebug.getInstacne({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Uni'
@@ -113,7 +103,7 @@ export default {
 
 //main.js
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug.init({
+const bugCtx = EasyDebug.getInstacne({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'Uni'
@@ -135,7 +125,7 @@ uni.$EasyDebug.uplog()
 ```javascript
 // app.js
 const EasyDebug = require('easy-debug')
-const bugCtx = EasyDebug.init({
+const bugCtx = EasyDebug.getInstacne({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'WxMini'
@@ -173,7 +163,7 @@ App({
 
 ```javascript
 const EasyDebug = require('./easybug/index.js')
-const bugCtx = EasyDebug.init({
+const bugCtx = EasyDebug.getInstacne({
     AppID:'jwCbG268w0sYfOdv',
     AppSecret:'6UkYvpyOlUb5Z4BD8PvRhl9h1yMbCC42',
     Env:'AliMini'

@@ -59,26 +59,20 @@ class Basic {
   }
 
 
-  startEasyDebugService() {
-    //
-    // this.injectListenService()
+  start() {
+
     this.injectStorageService()
     this.injectHtppService()
-    //this.injectUpService()
 
     this.addListener()
     this.intervalCtx = setInterval(this.upLog.bind(this), this.sendTime)
   }
 
 
-  // injectListenService(){}
   injectStorageService() {
   }
 
   injectHtppService() {
-  }
-
-  injectUpService() {
   }
 
 
@@ -87,7 +81,6 @@ class Basic {
   }
 
   addListener() {
-
   }
 
 
