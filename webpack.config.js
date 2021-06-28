@@ -33,7 +33,10 @@ var configGenerator = function (target, filename) {
             minimize: false,
         },
         resolve: {
-            extensions: [ '.tsx', '.ts', '.js' ]
+            extensions: [ '.tsx', '.ts', '.js' ],
+            alias:{
+                '@':path.resolve(__dirname,'src')
+            }
         },
         target: target, // "web" is default
         output: {

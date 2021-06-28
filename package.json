@@ -1,8 +1,8 @@
 {
   "name": "easy-debug",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "debug so easy",
-  "main": "dist/EasyDebug.browser.js",
+  "main": "src/main.ts",
   "scripts": {
     "build": "webpack --mode=production"
   },
