@@ -15,7 +15,7 @@ const defaultConfig = {
 class Basic {
 
   tempList: any = []
-  sendTime: number = 10 * 1000//一分钟一次
+  sendTime: number = 60 * 1000//一分钟一次
   trynum: number = 3//重试残次
   intervalCtx: any = null
   AppID = ''
@@ -83,14 +83,18 @@ class Basic {
   addListener() {
   }
 
+  //新增监听click事件
+  listenerClickEnenter() {
+  }
+
 
   /**
    * 手动记录记录
    * @param log
    * @constructor
    */
-  logRecord(log: Log) {
-    const {type, data, level = 'info'} = log
+  logRecord({type='default', data={}, level = 'info'}: Log) {
+    //const {type, data, level = 'info'} = log
     this.tempList.push({
       type,
       data: {...data, ...this.getCommonInfo()},

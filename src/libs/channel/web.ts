@@ -35,8 +35,10 @@ export default class Web extends Basic {
     }
   }
 
-  addListener() {
-    //点击事件
+
+  //点击事件 变成可选的，默认只捕获错误
+  listenerClickEnenter(){
+    
     document.body.addEventListener('click', {
       handleEvent: (evt) => {
         // @ts-ignore
@@ -47,6 +49,10 @@ export default class Web extends Basic {
         this.logRecord(logOjb);
       }
     }, false);
+  }
+
+  addListener() {
+
 
     window.addEventListener('error', (evt) => {
       var upEntInfo = {}
