@@ -39,7 +39,6 @@ export default class Web extends Basic {
     //点击事件
     document.body.addEventListener('click', {
       handleEvent: (evt) => {
-        console.log(evt, 2222);
         // @ts-ignore
         const {x, y, view: windowCtx} = evt;
         const {scrollX, scrollY, screen} = windowCtx;
@@ -58,7 +57,6 @@ export default class Web extends Basic {
           upEntInfo[k] = evt[k]
         }
       }
-      console.log(upEntInfo)
       this.logRecord({type: 'onerror', level: 'error', data: {error: upEntInfo}})
     })
   }

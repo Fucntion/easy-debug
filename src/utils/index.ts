@@ -5,7 +5,6 @@ export const getNowTime = () => {
 
 export const getNowTimeFull = () => {
   var date = new Date();
-  console.log(date);
   var transverse = "-";
   var Verticalpoint = ":";
   var month: any = date.getMonth() + 1;//获取月份
@@ -18,14 +17,12 @@ export const getNowTimeFull = () => {
   if (month >= 1 && month <= 9) {
     month = "0" + month;
   }
-  console.log(month);
   if (strDate >= 1 && strDate <= 9) {
     strDate = "0" + strDate;
   }
   if (strHour >= 1 && strHour <= 9) {
     strHour = "0" + strHour
   }
-  console.log(strHour);
   if (strMinute >= 1 && strMinute <= 9) {
     strMinute = "0" + strMinute;
   }

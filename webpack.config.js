@@ -3,7 +3,6 @@ const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const args = process.argv
-console.log(process.argv)
 
 const plugins = []
 const isDev = args.includes('--mode=development')
