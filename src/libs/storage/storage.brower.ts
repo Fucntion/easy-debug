@@ -1,10 +1,13 @@
 import {storageInterface} from "../../utils/interfaces";
+import {objToJsonStr} from "../../utils";
 
 export default class StorageBrower implements storageInterface {
   set(key: string, val: any): void {
     try {
       const data = {value: val, type: typeof val}
-      localStorage.setItem(key, JSON.stringify(data))
+      var strVal = objToJsonStr(data)
+      localStorage.setItem(key, strVal)
+
     } catch (e) {
       alert(`设置Storage失败，key：${key}`)
       throw e

@@ -45,3 +45,25 @@ export function Inject(modules: any) {
     });
   };
 }
+
+/**
+ * 解决对象的循环引用导致JSON.stringify错误的问题
+ * @param obj
+ * @returns {string}
+ */
+export const objToJsonStr = (obj: any)=>{
+  var cache:any = [];
+  const str:string = JSON.stringify(obj,function(key, value) {
+    if (typeof value === 'object' && value !== null) {
+      if (cache.includes(value)) {
+        // Circular reference found, discard key
+        return;
+      }
+      // Store value in our collection
+      cache.push(value);
+    }
+    return value;
+  })
+  return str
+}
+
